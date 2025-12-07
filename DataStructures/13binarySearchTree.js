@@ -1,8 +1,8 @@
 const Queue = require("./6queue");
 
 class Node {
-    constructor(value, left = null, right = null) {
-        this.value = value;
+    constructor(val, left = null, right = null) {
+        this.val = val;
         this.left = left;
         this.right = right;
     }
@@ -23,124 +23,125 @@ class BinarySearchTree {
         if (this.isEmpty()) {
             this.root = newNode;
         } else {
-            this._insertNode(this.root, newNode);
+            this._insertNode(newNode);
         }
     }
 
-    _insertNode(root, newNode) {
-        if (newNode.value < root.value) {
-            if (root.left === null) {
+    _insertNode(newNode, root = this.root) {
+        if (newNode.val < root.val) {
+            if (!root.left) {
                 root.left = newNode;
             } else {
-                this._insertNode(root.left, newNode);
+                this._insertNode(newNode, root.left);
             }
         } else {
-            if (root.right === null) {
+            if (!root.right) {
                 root.right = newNode;
             } else {
-                this._insertNode(root.right, newNode);
-            }
-        }
-    }
-
-    search(value, root = this.root) {
-        if (!root) {
-            return false;
-        } else {
-            if (value === root.value) {
-                return true;
-            }
-            if (value < root.value) {
-                return this.search(root.left, value);
-            } else {
-                return this.search(root.right, value);
-            }
-        }
-    }
-
-    preOrder(root = this.root) {
-        if (root) {
-            console.log(root.value);
-            this.preOrder(root.left);
-            this.preOrder(root.right);
-        }
-    }
-
-    inOrder(root = this.root) {
-        if (root) {
-            this.inOrder(root.left);
-            console.log(root.value);
-            this.inOrder(root.right);
-        }
-    }
-
-    postOrder(root = this.root) {
-        if (root) {
-            this.postOrder(root.left);
-            this.postOrder(root.right);
-            console.log(root.value);
-        }
-    }
-
-    levelOrder() {
-        const queue = new Queue();
-
-        queue.enqueue(this.root);
-        while (!queue.isEmpty()) {
-            let curr = queue.dequeue();
-            console.log(curr.value);
-            if (curr.left) {
-                queue.enqueue(curr.left);
-            }
-            if (curr.right) {
-                queue.enqueue(curr.right);
+                this._insertNode(newNode, root.right);
             }
         }
     }
 
     min(root = this.root) {
+        if (!root) return null;
         if (!root.left) {
-            return root.value;
-        } else {
-            return this.min(root.left);
+            return root.val;
         }
+        return this.min(root.left);
     }
 
     max(root = this.root) {
+        if (!root) return null;
         if (!root.right) {
-            return root.value;
-        } else {
-            return this.max(root.right);
+            return root.val;
         }
+        return this.max(root.right);
     }
 
     delete(value) {
-        this.root = this._deleteNode(value, this.root)
+        this.root = this._deleteNode(value);
     }
 
-    _deleteNode(value, root) {
-        if(root === null) {
+    _deleteNode(value, root = this.root) {
+        if (!root) {
             return root;
         }
 
-        if(value < root.value) {
-            root.left = this._deleteNode(value, root.left)
-        } else if(value > root.value) {
+        if (value < root.val) {
+            root.left = this._deleteNode(value, root.left);
+        } else if (value > root.val) {
             root.right = this._deleteNode(value, root.right);
         } else {
-            if(!root.left && !root.right) {
+            if (!root.left && !root.right) {
                 return null;
             }
-            if(!root.left) {
+            if (!root.left) {
                 return root.right;
-            } else if(!root.right) {
+            }
+            if (!root.right) {
                 return root.left;
             }
-
-            root.value = this.min(root.right);
-            root.right = this._deleteNode(root.value, root.right)
+            root.val = this.min(root.right);
+            root.right = this._deleteNode(root.val, root.right);
         }
         return root;
+    }
+
+    search(value, root = this.root) {
+        if (!root) {
+            return false;
+        }
+        if (value === root.val) {
+            return true;
+        }
+        if (value < root.val) {
+            return this.search(value, root.left);
+        } else {
+            return this.search(value, root.right);
+        }
+    }
+
+    preorder(root = this.root) {
+        if (root) {
+            console.log(root.val);
+            this.preorder(root.left);
+            this.preorder(root.right);
+        }
+    }
+
+    inorder(root = this.root) {
+        if (root) {
+            this.inorder(root.left);
+            console.log(root.val);
+            this.inorder(root.right);
+        }
+    }
+
+    postorder(root = this.root) {
+        if (root) {
+            this.postorder(root.left);
+            this.postorder(root.right);
+            console.log(root.val);
+        }
+    }
+
+    levelorder() {
+        if (!this.isEmpty()) {
+            const queue = new Queue();
+
+            queue.enqueue(this.root);
+            while (!queue.isEmpty()) {
+                const curr = queue.dequeue();
+                console.log(curr.val);
+                if (curr.left) {
+                    queue.enqueue(curr.left);
+                }
+                if (curr.right) {
+                    queue.enqueue(curr.right);
+                }
+            }
+        }
     }
 }
 
@@ -150,5 +151,6 @@ bst.insert(15);
 bst.insert(5);
 bst.insert(3);
 bst.insert(7);
-bst.delete(5)
-bst.levelOrder()
+bst.delete(5);
+console.log(bst.search(3));
+bst.levelorder();
