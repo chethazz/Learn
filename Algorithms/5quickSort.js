@@ -31,6 +31,5 @@ function partition(arr, left, right) {
     return j;
 }
 
-const arr = [1, 10, 4, 3, 2, 0];
+const arr = [4, 4, 4, 3, 4, 2];
 console.log(quickSort(arr, 0, arr.length - 1));
-console.log(arr);
