@@ -47,13 +47,49 @@ class Graph {
             this.adjacencyList[vertex2].has(vertex1)
         );
     }
+
+    bfs(start) {
+        const visited = new Set();
+        const queue = [start];
+
+        while (queue.length) {
+            const node = queue.shift();
+
+            if (!visited.has(node)) {
+                visited.add(node);
+
+                for (let neighbour of this.adjacencyList[node]) {
+                    if (!visited.has(neighbour)) {
+                        queue.push(neighbour);
+                    }
+                }
+            }
+        }
+
+        return Array.from(visited);
+    }
+
+    dfs(start, visited = new Set()) {
+        if (start in this.adjacencyList) {
+            visited.add(start);
+            for (let neighbour of this.adjacencyList[start]) {
+                if (!visited.has(neighbour)) {
+                    this.dfs(neighbour, visited);
+                }
+            }
+        }
+        return visited;
+    }
 }
 
 const graph = new Graph();
-graph.addVertex("A");
-graph.addVertex("B");
-graph.addVertex("C");
+["A", "B", "C", "D", "E", "F"].forEach(v => graph.addVertex(v));
+
 graph.addEdge("A", "B");
-graph.addEdge("B", "C");
-graph.removeVertex("A");
-graph.display();
+graph.addEdge("A", "C");
+graph.addEdge("A", "D");
+graph.addEdge("B", "E");
+graph.addEdge("B", "F");
+
+console.log("BFS:", graph.bfs("A"));
+console.log("DFS:", Array.from(graph.dfs("A")));
