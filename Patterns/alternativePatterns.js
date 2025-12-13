@@ -39,8 +39,6 @@ function invertedFullPyramid(rows) {
     }
 }
 
-invertedFullPyramid(5);
-
 function rightLeaningRhombus(rows) {
     const cols = rows * 2 - 1;
 
