@@ -8,6 +8,20 @@ function rightHalfPyramid(rows) {
     }
 }
 
+function hollowRightHalfPyramid(rows) {
+    for (let i = 0; i < rows; i++) {
+        let row = "";
+        for (let j = 0; j <= i; j++) {
+            if (j === 0 || i === j || i === rows - 1) {
+                row += "* ";
+            } else {
+                row += "  ";
+            }
+        }
+        console.log(row);
+    }
+}
+
 function leftHalfPyramid(rows) {
     for (let i = 0; i < rows; i++) {
         let row = "";
@@ -21,6 +35,23 @@ function leftHalfPyramid(rows) {
     }
 }
 
+function hollowLeftHalfPyramid(rows) {
+    for (let i = 0; i < rows; i++) {
+        let row = "";
+        for (let j = 0; j < rows - 1 - i; j++) {
+            row += "  ";
+        }
+        for (let k = 0; k <= i; k++) {
+            if (k === 0 || k === i || i === rows - 1) {
+                row += "* ";
+            } else {
+                row += "  ";
+            }
+        }
+        console.log(row);
+    }
+}
+
 function fullPyramid(rows) {
     for (let i = 0; i < rows; i++) {
         let row = "";
@@ -29,6 +60,23 @@ function fullPyramid(rows) {
         }
         for (let k = 0; k <= i; k++) {
             row += "* ";
+        }
+        console.log(row);
+    }
+}
+
+function hollowFullPyramid(rows) {
+    for (let i = 0; i < rows; i++) {
+        let row = "";
+        for (let j = 0; j < rows - 1 - i; j++) {
+            row += " ";
+        }
+        for (let k = 0; k <= i; k++) {
+            if (k === 0 || i === k || i === rows - 1) {
+                row += "* ";
+            } else {
+                row += "  ";
+            }
         }
         console.log(row);
     }
