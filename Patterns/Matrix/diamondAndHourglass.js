@@ -18,7 +18,7 @@ function diamond(rows) {
     }
 }
 
-function hourGlass(rows) {
+function hourglass(rows) {
     const size = rows * 2 - 1;
     for (let i = 0; i < size; i++) {
         const l = i < rows ? i : size - 1 - i;
