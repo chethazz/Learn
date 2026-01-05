@@ -1,4 +1,3 @@
-const crypto = require("node:crypto");
 const https = require("node:https");
 
 // Altho both crypto.pbkdf2 and https.request are async, the
