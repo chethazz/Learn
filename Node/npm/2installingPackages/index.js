@@ -4,4 +4,4 @@ function greet(name) {
 	console.log(upperCase(`Hello ${name}, welcome`));
 }
 
-greet("Chethas");
+greet("Regulus");
