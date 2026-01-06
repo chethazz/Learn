@@ -1,0 +1,11 @@
+# Ignore everything in the root directory
+/*
+
+# But DO NOT ignore subdirectories
+!/*/
+
+# Include .gitignore
+!/.gitignore
+
+# Ignore node_modules
+**/node_modules/
