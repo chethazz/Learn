@@ -14,7 +14,7 @@ const server = http.createServer((req, res) => {
 			res.end(JSON.stringify({ message: "Data received", data: body }));
 		});
 	} else {
-		res.statusCode = 200;
+		res.statusCode = 404;
 		res.setHeader("Content-Type", "text/plain");
 		res.end("Route not found");
 	}
