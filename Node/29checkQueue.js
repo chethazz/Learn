@@ -1,10 +1,14 @@
-setImmediate(() => console.log("This is setImmediate 1"));
-setImmediate(() => {
-	console.log("This is setImmediate 2");
-	process.nextTick(() => console.log("This is process.nextTick 1"));
-	Promise.resolve().then(() => console.log("This is Promise.resolve 1"));
-});
-setImmediate(() => console.log("This is setImmediate 3"));
+const fs = require("node:fs");
 
-// Microtask callbacks are executed between macrotask callbacks (timers, I/O, check, close),
-// but not between microtask callbacks themselves.
+fs.readFile(__filename, () => {
+	console.log("This is readFile 1");
+	setImmediate(() => {
+		console.log("This is nested setImmediate inside readFile 1");
+	});
+});
+
+process.nextTick(() => console.log("This is process.nextTick 1"));
+Promise.resolve().then(() => console.log("This is Promise.resolve 1"));
+setTimeout(() => console.log("This is setTimeout 1"));
+
+for (let i = 0; i < 2000000000; i++) {}
