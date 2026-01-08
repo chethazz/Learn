@@ -1,5 +1,4 @@
 const http = require("node:http");
-const url = require("node:url");
 
 // Route handler
 const routes = {
@@ -21,7 +20,8 @@ const routes = {
 };
 
 const server = http.createServer((req, res) => {
-	const { pathname } = url.parse(req.url);
+	const url = new URL(req.url, `http://${req.headers.host}`);
+	const pathname = url.pathname;
 
 	if (routes[pathname]) {
 		routes[pathname](req, res);
