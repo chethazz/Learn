@@ -1,8 +1,8 @@
 const http = require("node:http");
-const url = require("node:url");
 
 const server = http.createServer((req, res) => {
-	const { pathname } = url.parse(req.url);
+	const url = new URL(req.url, `http://${req.headers.host}`);
+	const pathname = url.pathname;
 
 	if (pathname.startsWith("/user/")) {
 		const userId = pathname.split("/")[2];

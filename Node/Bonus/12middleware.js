@@ -1,5 +1,4 @@
 const http = require("node:http");
-const url = require("node:url");
 
 function logRequest(req, res, next) {
 	console.log(`${req.method} request made to ${req.url}`);
@@ -8,7 +7,8 @@ function logRequest(req, res, next) {
 
 const server = http.createServer((req, res) => {
 	logRequest(req, res, (req, res) => {
-		const { pathname } = url.parse(req.url);
+		const url = new URL(req.url, `http://${req.headers.host}`);
+		const pathname = url.pathname;
 
 		if (pathname.startsWith("/user/")) {
 			const userId = pathname.split("/")[2];
