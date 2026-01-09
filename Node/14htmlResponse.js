@@ -4,11 +4,11 @@ const fs = require("node:fs");
 const server = http.createServer((req, res) => {
 	res.statusCode = 200;
 	res.setHeader("Content-Type", "text/html");
-	// const html = fs.readFileSync(__dirname + "/12htmlResponse.html", "utf-8");
+	// const html = fs.readFileSync(__dirname + "/12htmlResponse.html");
 	// res.end(html);
 
 	// Better performance
-	fs.createReadStream(__dirname + "/12htmlResponse.html", "utf-8").pipe(res);
+	fs.createReadStream(__dirname + "/12htmlResponse.html").pipe(res);
 });
 
 server.listen(3000, () => {
