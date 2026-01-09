@@ -1,4 +1,6 @@
 const http = require("node:http");
+// HTTP module extends from EventEmitter and the callback in createServer
+// is a request listener
 
 const server = http.createServer((req, res) => {
 	res.statusCode = 200;
