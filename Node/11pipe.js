@@ -9,6 +9,8 @@ const readableStream = fs.createReadStream(__dirname + "/file.txt", {
 	highWaterMark: 2,
 });
 
+// pipe(gzip) returns a transform stream
+// Readable -> Transform -> Writable stream
 readableStream.pipe(gzip).pipe(fs.WriteStream(__dirname + "/file3.txt.gz"));
 
 const writableStream = fs.createWriteStream(__dirname + "/file3.txt");
