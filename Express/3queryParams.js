@@ -33,7 +33,7 @@ app.get("/api/users/:id", (req, res) => {
 
 	const findUser = mockUsers.find((user) => user.id === parsedId);
 	if (!findUser) {
-		return res.status(404).send({ message: "Bad request. User not found" });
+		return res.status(404).send({ message: "User not found" });
 	}
 
 	return res.send(findUser);
