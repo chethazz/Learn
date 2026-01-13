@@ -4,16 +4,6 @@ const app = express();
 
 app.use(express.json());
 
-const logMiddleware = (req, res, next) => {
-	console.log(`${req.method} = ${req.url}`);
-	next();
-};
-
-app.use(logMiddleware, (req, res, next) => {
-	console.log("Finished logging");
-	next();
-});
-
 const resolveIndexUserById = (req, res, next) => {
 	const parsedId = parseInt(req.params.id);
 
