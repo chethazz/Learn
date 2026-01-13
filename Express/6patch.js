@@ -77,6 +77,10 @@ app.patch("/api/users/:id", (req, res) => {
 
 	const userIndex = mockUsers.findIndex((user) => user.id === parsedId);
 
+	if (userIndex === -1) {
+		return res.status(404).send({ message: "User not found" });
+	}
+
 	mockUsers[userIndex] = { ...mockUsers[userIndex], ...req.body };
 
 	return res.status(200).send(mockUsers[userIndex]);
