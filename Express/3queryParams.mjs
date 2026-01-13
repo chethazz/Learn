@@ -3,16 +3,12 @@ import express from "express";
 const app = express();
 
 const mockUsers = [
-	{
-		id: 1,
-		username: "venusdeluca",
-		displayName: "Venus Deluca",
-	},
-	{
-		id: 2,
-		username: "regulus",
-		displayName: "Regulus",
-	},
+	{ id: 1, username: "venusdeluca", displayName: "Venus Deluca" },
+	{ id: 2, username: "regulus", displayName: "Regulus" },
+	{ id: 3, username: "deserteagle", displayName: "Desert Eagle" },
+	{ id: 4, username: "happygamer", displayName: "Happy Gamer" },
+	{ id: 5, username: "eventloop", displayName: "Event Loop" },
+	{ id: 6, username: "callstack", displayName: "Callstack" },
 ];
 
 app.get("/", (req, res) => {
@@ -20,7 +16,13 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api/users", (req, res) => {
-	res.send(mockUsers);
+	const { filter, value } = req.query;
+
+	if (filter && value) {
+		return res.send(mockUsers.filter((user) => user[filter].includes(value)));
+	}
+
+	return res.send(mockUsers);
 });
 
 app.get("/api/users/:id", (req, res) => {
