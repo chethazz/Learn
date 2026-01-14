@@ -11,10 +11,10 @@ router.get("/api/users", (req, res) => {
 	console.log(req.sessionID);
 	req.sessionStore.get(req.sessionID, (err, sessionData) => {
 		if (err) {
-			console.log(err);
+			console.error("Error: ", err);
 			throw err;
 		}
-		console.log(sessionData);
+		console.log("Session store: ", sessionData);
 	});
 	const result = validationResult(req);
 	console.log(result);
