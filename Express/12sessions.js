@@ -24,10 +24,6 @@ app.get("/", (req, res) => {
 	console.log(req.session);
 	console.log(req.sessionID);
 	req.session.visited = true;
-	res.cookie("hello", "world", {
-		maxAge: 1000 * 60 * 60 * 2,
-		signed: true,
-	});
 	res.send("Hello world!");
 });
 
