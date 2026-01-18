@@ -7,6 +7,8 @@ app.use(express.json());
 
 app.get("/books", (req, res) => {
 	const db = getDb();
+	const page = req.query.page || 0;
+	const perPage = 5;
 	const books = [];
 	// find() returns a cursor object that points to a set of documents
 	// outlined by our query(Points to the whole collection)
@@ -14,6 +16,8 @@ app.get("/books", (req, res) => {
 	db.collection("books")
 		.find()
 		.sort({ author: 1 })
+		.skip(page * perPage)
+		.limit(perPage)
 		.forEach((book) => books.push(book))
 		.then(() => {
 			res.json(books);
