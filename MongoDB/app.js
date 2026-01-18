@@ -77,6 +77,24 @@ app.delete("/books/:id", (req, res) => {
 	}
 });
 
+app.patch("/books/:id", (req, res) => {
+	if (ObjectId.isValid(req.params.id)) {
+		const db = getDb();
+		db.collection("books")
+			.updateOne({ _id: new ObjectId(req.params.id) }, { $set: req.body })
+			.then((book) => {
+				if (book) {
+					res.json(book);
+				} else {
+					res.status(404).json({ message: "Book not found" });
+				}
+			})
+			.catch(() => {
+				res.status(500).json({ error: "Internal server error" });
+			});
+	}
+});
+
 const startApp = async () => {
 	try {
 		await connectToDb();
