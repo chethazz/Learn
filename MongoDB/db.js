@@ -1,15 +1,15 @@
+import "dotenv/config";
 import { MongoClient } from "mongodb";
 
 let db;
 
 export const connectToDb = async () => {
 	try {
-		const client = await MongoClient.connect(
-			"mongodb://localhost:27017/bookstore",
-			{ serverSelectionTimeoutMS: 1000 },
-		);
+		const client = await MongoClient.connect(process.env.MONGO_URI, {
+			serverSelectionTimeoutMS: 1000,
+		});
 
-		db = client.db();
+		db = client.db("bookstore");
 		await db.admin().ping();
 
 		console.log("Connected to MongoDB");
